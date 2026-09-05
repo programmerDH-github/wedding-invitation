@@ -149,7 +149,7 @@
 }
 
 .attendance-info-modal {
-  width: 22rem;
+  width: 24rem;
 
   .header {
     .title {
@@ -171,8 +171,9 @@
     }
     .wedding-info {
       padding-top: 1.5rem;
-      padding-left: 2rem;
+      padding-left: 1.5rem;
       line-height: 1.5rem;
+      white-space: nowrap;
       svg {
         width: 0.8rem;
         height: 0.8rem;

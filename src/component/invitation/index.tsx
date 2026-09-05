@@ -29,12 +29,8 @@ export const Invitation = () => {
       <div className="content">서로의 온기가 되어</div>
       <div className="content">한 길을 함께 걷기로 약속했습니다.</div>
       <div className="break" />
-      <div className="content">많은 분들을 모시고 기쁨을 나누는 것이 도리이나</div>
-      <div className="content">양가 친척분들만 모시고</div>
-      <div className="content">소박하게 예식을 올리게 되었습니다.</div>
-      <div className="break" />
-      <div className="content">초대드리지 못하는 점 헤아려 주시길 바라며,</div>
-      <div className="content">먼 곳에서도 저희의 시작을 함께 축복해 주신다면</div>
+      <div className="content">저희 두 사람이 함께하는 새로운 시작을</div>
+      <div className="content">따뜻한 마음으로 축복해 주신다면</div>
       <div className="content">그것만으로 더할 나위 없는 기쁨이겠습니다.</div>
 
       <div className="break" />

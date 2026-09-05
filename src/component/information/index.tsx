@@ -3,7 +3,7 @@ import { STATIC_ONLY } from "../../env"
 import { Button } from "../button"
 import { LazyDiv } from "../lazyDiv"
 import { useModal } from "../modal"
-import { AttendanceInfo } from "./attendance"
+import { AttendanceNotice } from "./attendance"
 
 export const Information1 = () => {
   return (
@@ -12,9 +12,9 @@ export const Information1 = () => {
       <div className="info-card">
         <div className="label">식사 안내</div>
         <div className="content">
-          식사시간: 12시 30분 ~ 14시 30분
+          식사시간: 11시 30분 ~ 14시 00분
           <br />
-          장소: 지하 1층 연회장
+          장소: 29층 연회장
         </div>
       </div>
     </>
@@ -166,7 +166,7 @@ export const Information = () => {
     <LazyDiv className="card information">
       <Information1 />
       <Information2 />
-      <AttendanceInfo />
+      <AttendanceNotice />
     </LazyDiv>
   )
 }

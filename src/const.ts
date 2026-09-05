@@ -9,7 +9,7 @@ dayjs.locale("ko")
 
 export { dayjs }
 
-export const WEDDING_DATE = dayjs.tz("2026-11-14 11:00", "Asia/Seoul")
+export const WEDDING_DATE = dayjs.tz("2026-11-14 11:30", "Asia/Seoul")
 export const WEDDING_DATE_FORMAT = `YYYY년 MMMM D일 dddd A h시${WEDDING_DATE.minute() === 0 ? "" : " m분"}`
 
 // 예식 당월 휴무일. 켈린더에 표시하기 위함.
@@ -25,7 +25,7 @@ export const SHARE_ADDRESS = LOCATION
 export const SHARE_ADDRESS_TITLE = LOCATION
 
 // 네이버 지도 및 카카오 네비게이션에 사용할 좌표. [경도, 위도] 형식.
-export const WEDDING_HALL_POSITION = [126.9594982, 37.4657134]
+export const WEDDING_HALL_POSITION = [126.924271334879, 37.4921758625358]
 
 // 네이버 지도의 웨딩홀 장소 ID
 // 네이버 지도 웹페이지에서 웨딩홀 검색 후 URL에서 확인 가능.

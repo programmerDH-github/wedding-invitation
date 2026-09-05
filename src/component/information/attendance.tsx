@@ -24,7 +24,7 @@ const RULES = {
   },
 }
 
-export const AttendanceInfo = () => {
+export const AttendanceNotice = () => {
   const { openModal, closeModal } = useModal()
 
   const initialized = useRef(false)
@@ -39,19 +39,21 @@ export const AttendanceInfo = () => {
 
     openModal({
       className: "attendance-info-modal",
-      header: <div className="title">참석 의사 전달 안내</div>,
+      header: <div className="title">안내 말씀</div>,
       content: (
         <>
           <div className="info-message">
-            축하의 마음으로 참석해주시는
+            많은 분들을 모시고
             <br />
-            모든 분들을 귀하게 모실 수 있도록
+            기쁨을 나누는 것이 도리이나,
             <br />
-            참석 및 식사 여부를 미리 여쭙고자 합니다.
+            양가 친척분들만 모시고
+            <br />
+            간소하게 식을 올리게 되었습니다.
             <div className="break" />
-            부담없이 알려주시면
+            초대드리지 못하는 점
             <br />
-            정성껏 준비하겠습니다.
+            깊은 양해를 부탁드립니다.
           </div>
           <div className="wedding-info">
             <HeartIcon /> 신랑 {GROOM_FULLNAME} & 신부 {BRIDE_FULLNAME}
@@ -63,51 +65,18 @@ export const AttendanceInfo = () => {
         </>
       ),
       footer: (
-        <>
-          <Button
-            buttonStyle="style2"
-            onClick={() => {
-              closeModal()
-              openModal(attendanceModalInfo)
-            }}
-          >
-            참석 의사 전달하기
-          </Button>
-          <Button
-            buttonStyle="style2"
-            className="bg-light-grey-color text-dark-color"
-            onClick={closeModal}
-          >
-            닫기
-          </Button>
-        </>
+        <Button
+          buttonStyle="style2"
+          className="bg-light-grey-color text-dark-color"
+          onClick={closeModal}
+        >
+          확인
+        </Button>
       ),
     })
   }, [openModal, closeModal])
 
-  if (!SERVER_URL || WEDDING_DATE.isBefore(now.current)) return null
-
-  return (
-    <div className="info-card">
-      <div className="label">참석 의사 전달</div>
-      <div className="content">
-        신랑, 신부에게 참석의사를
-        <br />
-        미리 전달할 수 있어요.
-      </div>
-
-      <div className="break" />
-
-      <Button
-        style={{ width: "100%" }}
-        onClick={() => {
-          openModal(attendanceModalInfo)
-        }}
-      >
-        참석 의사 전달하기
-      </Button>
-    </div>
-  )
+  return null
 }
 
 const AttendanceModalContent = () => {

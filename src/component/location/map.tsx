@@ -1,55 +1,66 @@
-import { useEffect, useState, useRef } from "react"
-import { useKakao, useNaver } from "../store"
-import nmapIcon from "../../icons/nmap-icon.png"
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useRef, useState } from "react"
+import { useKakao } from "../store"
 import knaviIcon from "../../icons/knavi-icon.png"
 import tmapIcon from "../../icons/tmap-icon.png"
 import LockIcon from "../../icons/lock-icon.svg?react"
 import UnlockIcon from "../../icons/unlock-icon.svg?react"
-import {
-  KMAP_PLACE_ID,
-  LOCATION,
-  NMAP_PLACE_ID,
-  WEDDING_HALL_POSITION,
-} from "../../const"
-import { NAVER_MAP_CLIENT_ID } from "../../env"
+import { LOCATION, WEDDING_HALL_POSITION } from "../../const"
+import { KAKAO_SDK_JS_KEY } from "../../env"
 
 export const Map = () => {
-  return NAVER_MAP_CLIENT_ID ? <NaverMap /> : <div>Map is not available</div>
+  return <KakaoMap />
 }
 
-const NaverMap = () => {
-  const naver = useNaver()
+const KakaoMap = () => {
   const kakao = useKakao()
   const ref = useRef<HTMLDivElement>(null)
   const [locked, setLocked] = useState(true)
   const [showLockMessage, setShowLockMessage] = useState(false)
   const lockMessageTimeout = useRef<number | null>(null)
+  const [kakaoMaps, setKakaoMaps] = useState<any>(null)
+
+  useEffect(() => {
+    if (!KAKAO_SDK_JS_KEY) return
+
+    const scriptSrc = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_SDK_JS_KEY}&autoload=false`
+
+    if ((window as any).kakao?.maps) {
+      setKakaoMaps((window as any).kakao.maps)
+      return
+    }
+
+    if (!document.querySelector(`script[src="${scriptSrc}"]`)) {
+      const script = document.createElement("script")
+      script.src = scriptSrc
+      script.addEventListener("load", () => {
+        if ((window as any).kakao) {
+          ;(window as any).kakao.maps.load(() => {
+            setKakaoMaps((window as any).kakao.maps)
+          })
+        }
+      })
+      document.head.appendChild(script)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (kakaoMaps && ref.current) {
+      const center = new kakaoMaps.LatLng(
+        WEDDING_HALL_POSITION[1],
+        WEDDING_HALL_POSITION[0],
+      )
+      const map = new kakaoMaps.Map(ref.current, { center, level: 4 })
+      new kakaoMaps.Marker({ position: center, map })
+    }
+  }, [kakaoMaps])
 
   const checkDevice = () => {
     const userAgent = window.navigator.userAgent
-    if (userAgent.match(/(iPhone|iPod|iPad)/)) {
-      return "ios"
-    } else if (userAgent.match(/(Android)/)) {
-      return "android"
-    } else {
-      return "other"
-    }
+    if (userAgent.match(/(iPhone|iPod|iPad)/)) return "ios"
+    if (userAgent.match(/(Android)/)) return "android"
+    return "other"
   }
-
-  useEffect(() => {
-    if (naver) {
-      const map = new naver.maps.Map(ref.current, {
-        center: WEDDING_HALL_POSITION,
-        zoom: 17,
-      })
-
-      new naver.maps.Marker({ position: WEDDING_HALL_POSITION, map })
-
-      return () => {
-        map.destroy()
-      }
-    }
-  }, [naver])
 
   return (
     <>
@@ -59,9 +70,8 @@ const NaverMap = () => {
             className="lock"
             onTouchStart={() => {
               setShowLockMessage(true)
-              if (lockMessageTimeout.current !== null) {
+              if (lockMessageTimeout.current !== null)
                 clearTimeout(lockMessageTimeout.current)
-              }
               lockMessageTimeout.current = setTimeout(
                 () => setShowLockMessage(false),
                 3000,
@@ -69,9 +79,8 @@ const NaverMap = () => {
             }}
             onMouseDown={() => {
               setShowLockMessage(true)
-              if (lockMessageTimeout.current !== null) {
+              if (lockMessageTimeout.current !== null)
                 clearTimeout(lockMessageTimeout.current)
-              }
               lockMessageTimeout.current = setTimeout(
                 () => setShowLockMessage(false),
                 3000,
@@ -90,11 +99,10 @@ const NaverMap = () => {
         <button
           className={"lock-button" + (locked ? "" : " unlocked")}
           onClick={() => {
-            if (lockMessageTimeout.current !== null) {
+            if (lockMessageTimeout.current !== null)
               clearTimeout(lockMessageTimeout.current)
-            }
             setShowLockMessage(false)
-            setLocked((locked) => !locked)
+            setLocked((l) => !l)
           }}
         >
           {locked ? <LockIcon /> : <UnlockIcon />}
@@ -102,25 +110,6 @@ const NaverMap = () => {
         <div className="map-inner" ref={ref}></div>
       </div>
       <div className="navigation">
-        <button
-          onClick={() => {
-            switch (checkDevice()) {
-              case "ios":
-              case "android":
-                window.open(`nmap://place?id=${NMAP_PLACE_ID}`, "_self")
-                break
-              default:
-                window.open(
-                  `https://map.naver.com/p/entry/place/${NMAP_PLACE_ID}`,
-                  "_blank",
-                )
-                break
-            }
-          }}
-        >
-          <img src={nmapIcon} alt="naver-map-icon" />
-          네이버 지도
-        </button>
         <button
           onClick={() => {
             switch (checkDevice()) {
@@ -136,7 +125,7 @@ const NaverMap = () => {
                 break
               default:
                 window.open(
-                  `https://map.kakao.com/link/map/${KMAP_PLACE_ID}`,
+                  `https://map.kakao.com/link/map/${LOCATION},${WEDDING_HALL_POSITION[1]},${WEDDING_HALL_POSITION[0]}`,
                   "_blank",
                 )
                 break
@@ -159,10 +148,9 @@ const NaverMap = () => {
                 window.open(`tmap://route?${params.toString()}`, "_self")
                 break
               }
-              default: {
+              default:
                 alert("모바일에서 확인하실 수 있습니다.")
                 break
-              }
             }
           }}
         >
