@@ -39,7 +39,7 @@ export const KMAP_PLACE_ID = 86427304
 
 export const BRIDE_FULLNAME = "강유화"
 export const BRIDE_FIRSTNAME = "유화"
-export const BRIDE_TITLE = "장녀"
+export const BRIDE_TITLE = "딸"
 export const BRIDE_FATHER = "강성민"
 export const BRIDE_MOTHER = "고명자"
 export const BRIDE_INFO = [
@@ -65,7 +65,7 @@ export const BRIDE_INFO = [
 
 export const GROOM_FULLNAME = "이동훈"
 export const GROOM_FIRSTNAME = "동훈"
-export const GROOM_TITLE = "장남"
+export const GROOM_TITLE = "아들"
 export const GROOM_FATHER = "이명"
 export const GROOM_MOTHER = "박미경"
 export const GROOM_INFO = [
