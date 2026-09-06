@@ -22,45 +22,29 @@ export const ShareButton = () => {
             return
           }
 
+          // baseUrl(예: "/wedding-invitation")에는 끝 슬래시가 없어서, 슬래시 없이
+          // 링크를 만들면 GitHub Pages가 301 리다이렉트를 내려주는데 카카오톡
+          // 앱은 이 리다이렉트를 따라가지 않아 탭해도 반응이 없다.
+          const siteUrl = `${window.location.protocol}//${window.location.host}${baseUrl}/`
+
           kakao.Share.sendDefault({
             objectType: "feed",
             content: {
               title: `${GROOM_FULLNAME} ❤️ ${BRIDE_FULLNAME}의 결혼식에 초대합니다.`,
               description:
                 WEDDING_DATE.format(WEDDING_DATE_FORMAT) + "\n" + LOCATION,
-              imageUrl:
-                window.location.protocol +
-                "//" +
-                window.location.host +
-                baseUrl +
-                "/preview_image.jpg",
+              imageUrl: `${siteUrl}preview_image.jpg`,
               link: {
-                mobileWebUrl:
-                  window.location.protocol +
-                  "//" +
-                  window.location.host +
-                  baseUrl,
-                webUrl:
-                  window.location.protocol +
-                  "//" +
-                  window.location.host +
-                  baseUrl,
+                mobileWebUrl: siteUrl,
+                webUrl: siteUrl,
               },
             },
             buttons: [
               {
                 title: "초대장 보기",
                 link: {
-                  mobileWebUrl:
-                    window.location.protocol +
-                    "//" +
-                    window.location.host +
-                    baseUrl,
-                  webUrl:
-                    window.location.protocol +
-                    "//" +
-                    window.location.host +
-                    baseUrl,
+                  mobileWebUrl: siteUrl,
+                  webUrl: siteUrl,
                 },
               },
             ],
