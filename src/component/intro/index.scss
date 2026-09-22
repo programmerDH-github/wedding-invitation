@@ -1,0 +1,62 @@
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #3a3552 0%, #1c1a2b 100%);
+  cursor: pointer;
+  opacity: 1;
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+
+  .intro-content {
+    text-align: center;
+    padding: 2rem;
+    animation: intro-fade-in 1.5s ease;
+
+    .spell {
+      color: var(--white-color);
+      font-style: italic;
+      font-size: 1.3rem;
+      line-height: 1.8;
+      letter-spacing: 0.02em;
+    }
+
+    .hint {
+      color: var(--white-color);
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      opacity: 0.6;
+      animation: intro-pulse 2s ease-in-out infinite;
+    }
+  }
+
+  &.closing {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes intro-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes intro-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}

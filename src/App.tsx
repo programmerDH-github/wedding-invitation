@@ -6,12 +6,14 @@ import { Invitation } from "./component/invitation"
 import { Calendar } from "./component/calendar"
 import { Gallery } from "./component/gallery"
 import { Information } from "./component/information"
+import { Intro } from "./component/intro"
 import { LazyDiv } from "./component/lazyDiv"
 import { ShareButton } from "./component/shareButton"
 
 function App() {
   return (
     <div className="background">
+      <Intro />
       <BGEffect />
       <div className="card-view">
         <LazyDiv className="card-group">
