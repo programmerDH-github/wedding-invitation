@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { BRIDE_INFO, GROOM_INFO } from "../../const"
 import { STATIC_ONLY } from "../../env"
 import { Button } from "../button"
@@ -149,38 +148,6 @@ export const Information2 = () => {
   )
 }
 
-export const Information3 = () => {
-  const [revealed, setRevealed] = useState(false)
-
-  return (
-    <div
-      className={"info-card marauders-map" + (revealed ? " revealed" : "")}
-      onClick={() => setRevealed((r) => !r)}
-    >
-      <div className="label">마라우더의 지도</div>
-      {revealed ? (
-        <div className="content">
-          <div className="spell">Mischief Managed</div>
-          <div className="detail">
-            지도는 다시 접히지만
-            <br />
-            두 사람이 만나는 길은 늘 여기 있어요.
-          </div>
-        </div>
-      ) : (
-        <div className="content">
-          <div className="spell">
-            I solemnly swear
-            <br />
-            that I am up to no good
-          </div>
-          <div className="detail">(탭하여 지도를 펼쳐보세요)</div>
-        </div>
-      )}
-    </div>
-  )
-}
-
 export const Information = () => {
   if (STATIC_ONLY) {
     return (
@@ -196,15 +163,10 @@ export const Information = () => {
   }
 
   return (
-    <>
-      <LazyDiv className="card information">
-        <Information1 />
-        <Information2 />
-        <AttendanceNotice />
-      </LazyDiv>
-      <LazyDiv className="card information">
-        <Information3 />
-      </LazyDiv>
-    </>
+    <LazyDiv className="card information">
+      <Information1 />
+      <Information2 />
+      <AttendanceNotice />
+    </LazyDiv>
   )
 }
