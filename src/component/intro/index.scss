@@ -5,32 +5,207 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, #3a3552 0%, #1c1a2b 100%);
+  background: radial-gradient(circle at center, #241b12 0%, #0e0a07 100%);
   cursor: pointer;
   opacity: 1;
   transition:
     opacity 0.9s ease,
     transform 0.9s ease;
 
-  .intro-content {
-    text-align: center;
-    padding: 2rem;
-    animation: intro-fade-in 1.5s ease;
+  .map-sheet {
+    position: relative;
+    width: 88vw;
+    max-width: 24rem;
+    height: 70vh;
+    max-height: 34rem;
 
-    .spell {
-      color: var(--white-color);
-      font-style: italic;
-      font-size: 1.3rem;
-      line-height: 1.8;
-      letter-spacing: 0.02em;
+    background:
+      linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.16) 0%,
+        transparent 4%,
+        transparent 48%,
+        rgba(0, 0, 0, 0.22) 50%,
+        transparent 52%,
+        transparent 96%,
+        rgba(0, 0, 0, 0.16) 100%
+      ),
+      radial-gradient(
+        ellipse at 20% 15%,
+        rgba(255, 255, 255, 0.12),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse at 80% 85%,
+        rgba(0, 0, 0, 0.18),
+        transparent 55%
+      ),
+      radial-gradient(circle at 50% 50%, #cfb27e, #a9814f 75%, #8a6539 100%);
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 1px rgba(59, 39, 18, 0.5),
+      0 1.5rem 3rem rgba(0, 0, 0, 0.6);
+
+    animation: settle-in 0.7s ease both;
+    overflow: hidden;
+
+    .ink-bloom {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+
+      .blot {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 34%;
+        aspect-ratio: 1;
+        background: radial-gradient(
+          circle,
+          rgba(37, 23, 10, 0.85) 0%,
+          rgba(37, 23, 10, 0.6) 55%,
+          transparent 75%
+        );
+        mix-blend-mode: multiply;
+        filter: blur(0.35rem);
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
+
+      .b1 {
+        border-radius: 42% 58% 63% 37% / 45% 40% 60% 55%;
+      }
+      .b2 {
+        width: 46%;
+        border-radius: 55% 45% 40% 60% / 55% 65% 35% 45%;
+      }
+      .b3 {
+        width: 58%;
+        border-radius: 48% 52% 55% 45% / 40% 50% 50% 60%;
+      }
     }
 
-    .hint {
-      color: var(--white-color);
-      margin-top: 1.5rem;
+    .footprints {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #3b2712;
+
+      .footprint {
+        position: absolute;
+        width: 0.5rem;
+        height: 0.75rem;
+        transform: rotate(var(--rot));
+
+        &.flip {
+          transform: rotate(var(--rot)) scaleX(-1);
+        }
+
+        .mark {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transform: scale(0.4);
+        }
+
+        .pad {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 62%;
+          background: currentColor;
+          border-radius: 50% 50% 45% 45%;
+          filter: blur(0.2px);
+        }
+
+        .toes {
+          position: absolute;
+          top: 0;
+          left: 0.05rem;
+          width: 0.14rem;
+          height: 0.14rem;
+          background: currentColor;
+          border-radius: 50%;
+          box-shadow:
+            0.18rem 0.03rem 0 0 currentColor,
+            0.32rem 0.1rem 0 0 currentColor;
+        }
+      }
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+
+      .spell {
+        font-family: "MedievalSharp", cursive;
+        color: #f4e9d2;
+        font-size: 1.6rem;
+        letter-spacing: 0.03em;
+        text-shadow: 0 0.05rem 0.3rem rgba(0, 0, 0, 0.4);
+        opacity: 0;
+
+        .spell-gloss {
+          margin-top: 0.8rem;
+          font-family: "MapoGoldenPier", sans-serif;
+          font-size: 0.85rem;
+          letter-spacing: 0;
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .pre-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #2c1c0d;
       font-size: 0.8rem;
-      opacity: 0.6;
+      opacity: 0.55;
       animation: intro-pulse 2s ease-in-out infinite;
+    }
+
+    // 탭해서 잉크가 퍼지며 열리는 단계
+    &.opened {
+      .ink-bloom {
+        .blot {
+          animation: bloom-spread 1.3s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+        }
+        .b2 {
+          animation-delay: 0.15s;
+        }
+        .b3 {
+          animation-delay: 0.3s;
+        }
+      }
+
+      .footprints .footprint .mark {
+        animation: ink-step 3s ease-out forwards;
+      }
+
+      .intro-content .spell {
+        animation: spell-fade-in 1.2s ease 0.9s forwards;
+      }
+
+      .pre-hint {
+        animation: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
     }
   }
 
@@ -40,10 +215,35 @@
   }
 }
 
-@keyframes intro-fade-in {
+@keyframes settle-in {
   from {
     opacity: 0;
-    transform: translateY(0.5rem);
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bloom-spread {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  35% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.55;
+  }
+}
+
+@keyframes spell-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
   }
   to {
     opacity: 1;
@@ -54,9 +254,31 @@
 @keyframes intro-pulse {
   0%,
   100% {
-    opacity: 0.4;
+    opacity: 0.35;
   }
   50% {
-    opacity: 0.9;
+    opacity: 0.75;
+  }
+}
+
+@keyframes ink-step {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+    filter: blur(0.15rem);
+  }
+  25% {
+    opacity: 0.85;
+    transform: scale(1.15);
+    filter: blur(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0.25;
   }
 }
