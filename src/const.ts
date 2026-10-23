@@ -22,6 +22,11 @@ export const LOCATION_ADDRESS = "서울 동작구 보라매로5길 15 전문건�
 // 네이버 지도 및 카카오 네비게이션에 사용할 좌표. [경도, 위도] 형식.
 export const WEDDING_HALL_POSITION = [126.924271334879, 37.4921758625358]
 
+// 지도 마커와 내비게이션 목적지로 사용할 주차장 입구. [경도, 위도] 형식.
+// 네이버 지도: https://map.naver.com/p/entry/place/19039533
+export const PARKING_NAME = "전문건설회관빌딩주차장입구"
+export const PARKING_POSITION = [126.9246571, 37.4924405]
+
 // 네이버 지도의 웨딩홀 장소 ID
 // 네이버 지도 웹페이지에서 웨딩홀 검색 후 URL에서 확인 가능.
 // 예: https://map.naver.com/p/entry/place/13321741 -> 13321741

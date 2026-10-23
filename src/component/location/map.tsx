@@ -5,7 +5,7 @@ import knaviIcon from "../../icons/knavi-icon.png"
 import tmapIcon from "../../icons/tmap-icon.png"
 import LockIcon from "../../icons/lock-icon.svg?react"
 import UnlockIcon from "../../icons/unlock-icon.svg?react"
-import { LOCATION, WEDDING_HALL_POSITION } from "../../const"
+import { PARKING_NAME, PARKING_POSITION } from "../../const"
 import { KAKAO_SDK_JS_KEY } from "../../env"
 
 export const Map = () => {
@@ -47,8 +47,8 @@ const KakaoMap = () => {
   useEffect(() => {
     if (kakaoMaps && ref.current) {
       const center = new kakaoMaps.LatLng(
-        WEDDING_HALL_POSITION[1],
-        WEDDING_HALL_POSITION[0],
+        PARKING_POSITION[1],
+        PARKING_POSITION[0],
       )
       const map = new kakaoMaps.Map(ref.current, { center, level: 4 })
       new kakaoMaps.Marker({ position: center, map })
@@ -117,15 +117,15 @@ const KakaoMap = () => {
               case "android":
                 if (kakao)
                   kakao.Navi.start({
-                    name: LOCATION,
-                    x: WEDDING_HALL_POSITION[0],
-                    y: WEDDING_HALL_POSITION[1],
+                    name: PARKING_NAME,
+                    x: PARKING_POSITION[0],
+                    y: PARKING_POSITION[1],
                     coordType: "wgs84",
                   })
                 break
               default:
                 window.open(
-                  `https://map.kakao.com/link/map/${LOCATION},${WEDDING_HALL_POSITION[1]},${WEDDING_HALL_POSITION[0]}`,
+                  `https://map.kakao.com/link/map/${PARKING_NAME},${PARKING_POSITION[1]},${PARKING_POSITION[0]}`,
                   "_blank",
                 )
                 break
@@ -141,9 +141,9 @@ const KakaoMap = () => {
               case "ios":
               case "android": {
                 const params = new URLSearchParams({
-                  goalx: WEDDING_HALL_POSITION[0].toString(),
-                  goaly: WEDDING_HALL_POSITION[1].toString(),
-                  goalName: LOCATION,
+                  goalx: PARKING_POSITION[0].toString(),
+                  goaly: PARKING_POSITION[1].toString(),
+                  goalName: PARKING_NAME,
                 })
                 window.open(`tmap://route?${params.toString()}`, "_self")
                 break

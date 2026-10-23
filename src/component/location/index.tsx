@@ -38,7 +38,7 @@ export const Location = () => {
           <div className="content">
             네이버 지도, 카카오 네비, 티맵 등 이용
             <br />
-            <b>플로렌스 보라매점</b> 검색
+            <b>전문건설회관빌딩주차장입구</b> 검색
             <br />
             - 주차 요금은 무료입니다.
             <br />
